@@ -1,0 +1,44 @@
+profile::cvmfs::client::repositories: ['cvmfs-config.computecanada.ca', 'soft.computecanada.ca', 'soft.mugqic']
+profile::cvmfs::client::alien_cache_repositories: ['ref.mugqic']
+profile::cvmfs::alien_cache::alien_fs_root: "/project"
+profile::globus::display_name: 'C3G CARDINAL HPC'
+profile::globus::contact_email: 'pierre-olivier.quirion@mcgill.ca'
+profile::globus::organization: 'C3G'
+profile::globus::owner: 'pierre-olivier.quirion@mcgill.ca'
+profile::globus::accepted_domains: ['computecanada.ca','alliancecan.ca']
+profile::globus::exposed_paths: ['/project']
+profile::slurm::base::config_addendum: "MaxJobCount=50000"
+prometheus::storage_retention: '365d'
+prometheus::storage_retention_size: '1GB'
+profile::sssd::client::mkhomedir: true
+profile::ceph::client::mon_host:
+  - 10.65.0.10:6789
+  - 10.65.0.12:6789
+  - 10.65.0.11:6789
+profile::ceph::client::shares:
+  home:
+    share_name: "<HPC_NAME>-home"
+    access_key: <HOME_KEY>
+    export_path: <HOME_SHARE>
+    bind_mounts:
+      - src: "/"
+        dst: "/home"
+        type: "directory"
+  project:
+    share_name: "<HPC_NAME>-project"
+    access_key: <PROJECT_KEY>
+    export_path: <PROJECT_SHARE>
+    bind_mounts:
+      - src: "/"
+        dst: "/project"
+        type: "directory"
+profile::users::ldap::users:
+  <USER_NAME>:
+    groups: ['def-<group>']
+    public_keys: [<ssh key>]
+    globus_id: <globus id>
+
+magic_castle::site::tags:
+  cephfs:
+    - profile::ceph::client
+    

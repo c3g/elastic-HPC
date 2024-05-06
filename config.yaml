@@ -7,7 +7,9 @@ profile::globus::organization: 'C3G'
 profile::globus::owner: 'pierre-olivier.quirion@mcgill.ca'
 profile::globus::accepted_domains: ['computecanada.ca','alliancecan.ca']
 profile::globus::exposed_paths: ['/project']
-profile::slurm::base::config_addendum: "MaxJobCount=50000"
+profile::slurm::base::config_addendum: |
+    MaxJobCount=50000
+    DependencyParameters=kill_invalid_depend
 prometheus::storage_retention: '365d'
 prometheus::storage_retention_size: '1GB'
 profile::sssd::client::mkhomedir: true

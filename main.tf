@@ -27,12 +27,14 @@ module "openstack" {
     to-clone- = { type = "c2-7.5gb", tags = ["node","cephfs"], count = 0}
  }
 
-  # var.pool is managed by Slurm through Terraform REST API.
-  # To let Slurm manage a type of nodes, add "pool" to its tag list.
-  # When using Terraform CLI, this parameter is ignored.
-  # Refer to Magic Castle Documentation - Enable Magic Castle Autoscaling
-  pool = var.pool
+subnet_id= "<subnet_id>"
+hieradata = file("config.yaml")
+os_ext_network= "Public-Network"
+  
 
+  public_keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKNh8QVIYdqgnPK1jS2slJ7Xmcz3eEfqGRaSKqKK3gSF poq@frugal"]
+
+ pool = var.pool
  # No nfs mounted volumes
  volumes ={}
  # only open's proxy to C3G offices ip's by default
@@ -46,17 +48,11 @@ module "openstack" {
     GridFTP = { "from_port" = 50000, "to_port" = 51000, "tag" = "dtn" }
   }
 
-
-
-  hieradata = file("config.yaml")
-  os_ext_network= "Public-Network"
-  subnet_id= "6d59cde3-7b44-447f-abab-750def0ec6a0"
-
-  public_keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKNh8QVIYdqgnPK1jS2slJ7Xmcz3eEfqGRaSKqKK3gSF poq@frugal","ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBblyJ+6JynjS7kxzawodNvRrOTGVGj7266zcFJuq01N 1password_ed25519"]
-
+ # no token user created	
   nb_users = 0
   # Shared password, randomly chosen if blank
   guest_passwd = ""
+
 }
 
 output "accounts" {
@@ -69,7 +65,7 @@ output "public_ip" {
 
 ## Uncomment to register your domain name with CloudFlare
 module "dns" {
-  source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare"
+  source           = "git::https://github.com/C3G/magic_castle.git//dns/cloudflare"
   name             = module.openstack.cluster_name
   bastions         = module.openstack.bastions
   domain           = module.openstack.domain

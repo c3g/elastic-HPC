@@ -2,7 +2,7 @@
 
 Elastic HPC is the deployment of multiple Magic Castle (MC) cluster on the SD4H infrastructure. [This repo](https://github.com/c3g/elastic-HPC) is the template to be able to add a new cluster in the project or to manage an existing one.
 
-The fork we use to deploy MC stays as close as possible to the upstream project for both the [Terrafrom repos](https://github.com/c3g/magic_castle) and its accompanying  [puppet configuration](https://github.com/c3g/puppet-magic_castle). Hopefully, we will be able to merge all our required feature to the upstream project in the future and Elastic-HPC will only need a specific configuration included in this template to be deployed.
+The fork we use to deploy MC stays as close as possible to the upstream project for both the [Terrafrom repo](https://github.com/c3g/magic_castle) and its accompanying  [puppet configuration](https://github.com/c3g/puppet-magic_castle). Hopefully, we will be able to merge all our required feature to the upstream project in the future and Elastic-HPC will only need a specific configuration included in this template to be deployed.
 
 
 The elastic-HPC clusters are deployed in a single OpenStack Project or tenant: `Elastic-HPC` and managed by the SD4H team on the [SD4H/Juno infrastructure](https://www.sd4health.ca/).

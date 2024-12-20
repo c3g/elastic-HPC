@@ -44,7 +44,7 @@ It would be similar when creating a cluster in a separate project.  The cluster 
 
 ```bash
 CLUSTER_NAME=corbeau
-OS_CLOUD=Elastic-HPC # See how to set you cloud.yaml config here https://docs.openstack.org/python-openstackclient/pike/configuration/index.html
+export OS_CLOUD=Elastic-HPC # See how to set you cloud.yaml config here https://docs.openstack.org/python-openstackclient/pike/configuration/index.html
 HOME_SIZE=50 # in GB, usually 50GB per user
 PROJECT_SIZE=50 # in GB, where the computation happens
 # Create the shares themselves
@@ -181,11 +181,13 @@ profile::users::ldap::users:
 ```
 
 ### Applying the plan
-In the terminal run
+The state of the cluster is stored in the elastic-HPC object store in the `terraform-states` bucket. Make sure that you have an S3 key for that [bucket](https://wiki.c3g-app.sd4h.ca/wiki/Object_Store_Quick_Start) and that you have a `~/.aws` set in you home under the elastic-hpc name. Make sure that you have acess to our cloud flare API token with DNS modification enable, then in the terminal run:
 
 ```bash
-$terraform init
-$terraform apply
+export OS_CLOUD=Elastic-HPC
+export AWS_PROFILE=Elastic-HPC
+terraform init
+terraform apply
 ```
 
 Look at the output and type `yes` if you are happy with what you see. In case of troubles, request some help on the C3G SD4H slack channel!

@@ -1,5 +1,20 @@
 terraform {
   required_version = ">= 1.4.0"
+
+backend "s3"  {
+    bucket = "terraform-states"
+    key    = "<HPC_NAME>/terraform.tfstate"
+    region      = "default"
+
+    use_path_style              = true
+    skip_region_validation      = true
+    skip_credentials_validation = true
+    skip_metadata_api_check     = true
+    skip_requesting_account_id  = true
+    skip_s3_checksum            = true
+  }
+
+
 }
 
 
@@ -15,11 +30,11 @@ module "openstack" {
 
   cluster_name = "<HPC_NAME>"
   domain       = "sd4h.ca"
-  image        = "AlmaLinux-8.9-x64-2023-11"
+  image        = "AlmaLinux-9.4-x64-2024-05"
 
   instances = {
     mgmt   = { type = "ha8-30gb-100", tags = ["puppet", "mgmt","cephfs"], count = 1, disk_size= 50  }
-    cardinal-  = { type = "ha8-30gb-100", tags = ["login", "public", "proxy","cephfs"], count = 1 }
+    <HPC_NAME>-  = { type = "ha8-30gb-100", tags = ["login", "public", "proxy","cephfs"], count = 1 }
     globus  = { type = "ha4-15gb", tags =  [ "public","dtn","cephfs"], count = 1 }
     node-   = { type = "c64-240gb-800", tags = ["node","cephfs"], count = 1 }
     node-hm-   = { type = "c64-480gb-800", tags = ["node","cephfs"], count = 0 }
@@ -32,7 +47,7 @@ hieradata = file("config.yaml")
 os_ext_network= "Public-Network"
   
 
-  public_keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKNh8QVIYdqgnPK1jS2slJ7Xmcz3eEfqGRaSKqKK3gSF poq@frugal"]
+  public_keys = [<you public SSH key>, "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKNh8QVIYdqgnPK1jS2slJ7Xmcz3eEfqGRaSKqKK3gSF poq@frugal"]
 
  pool = var.pool
  # No nfs mounted volumes

@@ -1,9 +1,9 @@
 profile::cvmfs::client::repositories: ['cvmfs-config.computecanada.ca', 'soft.computecanada.ca', 'soft.mugqic']
 profile::cvmfs::client::alien_cache_repositories: ['ref.mugqic']
 profile::cvmfs::alien_cache::alien_fs_root: "/project"
-profile::globus::display_name: 'C3G CARDINAL HPC'
+profile::globus::display_name: 'SD4H <HPC_NAME> HPC'
 profile::globus::contact_email: 'pierre-olivier.quirion@mcgill.ca'
-profile::globus::organization: 'C3G'
+profile::globus::organization: 'SD4H'
 profile::globus::owner: 'pierre-olivier.quirion@mcgill.ca'
 profile::globus::accepted_domains: ['computecanada.ca','alliancecan.ca']
 profile::globus::exposed_paths: ['/project']
